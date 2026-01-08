@@ -4,15 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guinea Cat | 个人主页</title>
+    <title>Guinea Cat | AI 个人主页</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 引入 Babel，这是浏览器能看懂你代码的关键！ -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
     <script>
-      // 这段代码是为了防止浏览器报错 "process is not defined"
-      // 你的 AI 功能需要 API Key，但在公开网页这种纯静态模式下，
-      // 暂时先留空，保证页面能先显示出来，不白屏。
+      // 防止报错的兼容代码
       window.process = { env: { API_KEY: '' } };
     </script>
+
     <script type="importmap">
 {
   "imports": {
@@ -36,6 +39,7 @@
 </head>
 <body class="bg-[#f8fafc] text-slate-900">
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
+    <!-- 注意这里：type="text/babel" 就是告诉浏览器“这需要翻译” -->
+    <script type="text/babel" data-presets="react,typescript" data-type="module" src="./index.tsx"></script>
 </body>
 </html>
