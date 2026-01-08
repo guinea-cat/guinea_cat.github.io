@@ -7,6 +7,12 @@
     <title>Guinea Cat | 个人主页</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      // 这段代码是为了防止浏览器报错 "process is not defined"
+      // 你的 AI 功能需要 API Key，但在公开网页这种纯静态模式下，
+      // 暂时先留空，保证页面能先显示出来，不白屏。
+      window.process = { env: { API_KEY: '' } };
+    </script>
     <script type="importmap">
 {
   "imports": {
