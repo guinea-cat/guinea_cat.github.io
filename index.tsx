@@ -29,15 +29,19 @@ const PROJECTS = [
 
 // ================= AI 交互逻辑 =================
 const callGemini = async (msg: string) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  // 注意：在网页公开版中，API KEY 需要你在本地测试时配置，或者做成后端转发。
+  // 这里为了防止报错，如果没有 key 会返回预设回复。
+  const apiKey = process.env.API_KEY;
+  
+  if (!apiKey) {
+    return "我现在是演示模式，因为主人没有配置 API Key，所以我只能说这句话。不过页面已经跑起来啦！";
+  }
+
+  const ai = new GoogleGenAI({ apiKey: apiKey });
   const prompt = `
     你现在是 ${USER.name} 的个人数字分身。
     主人的背景：${USER.title}，简介：${USER.bio}。
     你的任务：以主人的语气，友好、幽默、简洁地回答访问者的问题。
-    回答规范：
-    1. 始终使用中文。
-    2. 如果被问到技术栈，提到 React, Tailwind 和 AI 集成。
-    3. 如果用户问你是谁，告诉他你是 Guinea Cat 的 AI 助手。
   `;
   
   try {
@@ -48,7 +52,7 @@ const callGemini = async (msg: string) => {
     return res.text;
   } catch (e) {
     console.error(e);
-    return "我的电路可能短路了，要不你直接发邮件联系我主人？";
+    return "我的连接出了点小问题，请稍后再试。";
   }
 };
 
@@ -56,7 +60,7 @@ const callGemini = async (msg: string) => {
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [msgs, setMsgs] = useState([{ r: 'ai', t: '嘿！我是 Guinea Cat 的 AI 助理，有什么想了解的？' }]);
+  const [msgs, setMsgs] = useState([{ r: 'ai', t: '嘿！我是 Guinea Cat 的 AI 助理，网页已经修好了！快来试试！' }]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
